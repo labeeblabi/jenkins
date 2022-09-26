@@ -61,7 +61,7 @@ publishing {
     }
     repositories {
         maven {
-            url "http://ec2-34-195-176-90.compute-1.amazonaws.com/api/v4/projects/${CI_PROJECT_ID}/packages/maven
+            url "http://ec2-34-195-176-90.compute-1.amazonaws.com/api/v4/projects/${CI_PROJECT_ID}/packages/maven"
             credentials(HttpHeaderCredentials) {
                 name = "Private-Token"
                 value = gitLabPrivateToken // the variable resides in $GRADLE_USER_HOME/gradle.properties
