@@ -9,6 +9,7 @@
 plugins {
     // Apply the application plugin to add support for building a CLI application in Java.
     id 'application'
+    id 'maven-publish'
 }
 
 repositories {
@@ -44,5 +45,11 @@ repositories {
         authentication {
             header(HttpHeaderAuthentication)
         }
+    }
+}
+repositories {
+    maven {
+        url "http://ec2-34-195-176-90.compute-1.amazonaws.com/api/v4/projects/${CI_PROJECT_ID}/packages/maven"
+        name "GitLab"
     }
 }
