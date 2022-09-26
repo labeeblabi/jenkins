@@ -26,7 +26,8 @@ build:
   stage: build
   script:
     - gradle --build-cache assemble
-    - curl --header "JOB-TOKEN: $CI_JOB_TOKEN" --upload-file app/lib ${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/generic/ci-upload/0.0.1/test-linux
+    - |
+      curl --header "JOB-TOKEN: $CI_JOB_TOKEN" --upload-file app/lib ${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/generic/ci-upload/0.0.1/test-linux
   cache:
     key: "$CI_COMMIT_REF_NAME"
     policy: push
