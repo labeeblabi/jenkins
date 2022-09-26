@@ -36,11 +36,11 @@ tasks.named('test') {
 }
 repositories {
     maven {
-        url "${CI_API_V4_URL}/groups/<group>/-/packages/maven"
+        url "http://ec2-34-195-176-90.compute-1.amazonaws.com/api/v4/projects/${CI_PROJECT_ID}/packages/maven"
         name "GitLab"
         credentials(HttpHeaderCredentials) {
-            name = 'Job-Token'
-            value = System.getenv("CI_JOB_TOKEN")
+            name = 'Private-Token'
+            value = gitLabPrivateToken
         }
         authentication {
             header(HttpHeaderAuthentication)
@@ -51,5 +51,24 @@ repositories {
     maven {
         url "http://ec2-34-195-176-90.compute-1.amazonaws.com/api/v4/projects/${CI_PROJECT_ID}/packages/maven"
         name "GitLab"
+    }
+}
+publishing {
+    publications {
+        library(MavenPublication) {
+            from components.java
+        }
+    }
+    repositories {
+        maven {
+            url "http://ec2-34-195-176-90.compute-1.amazonaws.com/api/v4/projects/${CI_PROJECT_ID}/packages/maven
+            credentials(HttpHeaderCredentials) {
+                name = "Private-Token"
+                value = gitLabPrivateToken // the variable resides in $GRADLE_USER_HOME/gradle.properties
+            }
+            authentication {
+                header(HttpHeaderAuthentication)
+            }
+        }
     }
 }
