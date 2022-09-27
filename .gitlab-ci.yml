@@ -33,7 +33,7 @@ deploy:
     - 'gradle publish'
   only:
     - tags
-  artifactls:
+  artifacts:
     paths:
       - /builds/muhammed.labeeb/java_build_gradle/app/
 
