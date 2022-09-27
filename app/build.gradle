@@ -36,7 +36,7 @@ tasks.named('test') {
 }
 repositories {
     maven {
-        url "http://ec2-34-195-176-90.compute-1.amazonaws.com/api/v4/projects/16/packages/maven"
+        url "https://gitlab.mvtest-harbor.live/api/v4/projects/16/packages/maven"
         name "GitLab"
         credentials(HttpHeaderCredentials) {
             name = 'Private-Token'
@@ -49,7 +49,7 @@ repositories {
 }
 repositories {
     maven {
-        allowInsecureProtocol "http://ec2-34-195-176-90.compute-1.amazonaws.com/api/v4/projects/16/packages/maven"
+        allowInsecureProtocol "https://gitlab.mvtest-harbor.live/api/v4/projects/16/packages/maven"
         name "GitLab"
     }
 }
@@ -61,7 +61,7 @@ publishing {
     }
     repositories {
         maven {
-            allowInsecureProtocol "http://ec2-34-195-176-90.compute-1.amazonaws.com/api/v4/projects/16/packages/maven"
+            allowInsecureProtocol "https://gitlab.mvtest-harbor.live/api/v4/projects/16/packages/maven"
             credentials(HttpHeaderCredentials) {
                 name = "Private-Token"
                 value = gitLabPrivateToken // the variable resides in $GRADLE_USER_HOME/gradle.properties
