@@ -34,4 +34,41 @@ tasks.named('test') {
     // Use JUnit Platform for unit tests.
     useJUnitPlatform()
 }
-
+repositories {
+    maven {
+        url "http://ec2-34-195-176-90.compute-1.amazonaws.com/api/v4/projects/16/packages/maven"
+        name "GitLab"
+        credentials(HttpHeaderCredentials) {
+            name = 'Private-Token'
+            value = gitLabPrivateToken
+        }
+        authentication {
+            header(HttpHeaderAuthentication)
+        }
+    }
+}
+repositories {
+    maven {
+        allowInsecureProtocol "http://ec2-34-195-176-90.compute-1.amazonaws.com/api/v4/projects/16/packages/maven"
+        name "GitLab"
+    }
+}
+publishing {
+    publications {
+        library(MavenPublication) {
+            from components.java
+        }
+    }
+    repositories {
+        maven {
+            allowInsecureProtocol "http://ec2-34-195-176-90.compute-1.amazonaws.com/api/v4/projects/16/packages/maven"
+            credentials(HttpHeaderCredentials) {
+                name = "Private-Token"
+                value = gitLabPrivateToken // the variable resides in $GRADLE_USER_HOME/gradle.properties
+            }
+            authentication {
+                header(HttpHeaderAuthentication)
+            }
+        }
+    }
+}
