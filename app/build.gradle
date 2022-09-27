@@ -37,6 +37,7 @@ tasks.named('test') {
 repositories {
     maven {
         url "https://gitlab.mvtest-harbor.live/api/v4/projects/16/packages/maven"
+        allowInsecureProtocol = true
         name "GitLab"
         credentials(HttpHeaderCredentials) {
             name = 'Private-Token'
@@ -49,7 +50,7 @@ repositories {
 }
 repositories {
     maven {
-        allowInsecureProtocol "https://gitlab.mvtest-harbor.live/api/v4/projects/16/packages/maven"
+        url "https://gitlab.mvtest-harbor.live/api/v4/projects/16/packages/maven"
         name "GitLab"
     }
 }
@@ -61,7 +62,7 @@ publishing {
     }
     repositories {
         maven {
-            allowInsecureProtocol "https://gitlab.mvtest-harbor.live/api/v4/projects/16/packages/maven"
+            url "https://gitlab.mvtest-harbor.live/api/v4/projects/16/packages/maven"
             credentials(HttpHeaderCredentials) {
                 name = "Private-Token"
                 value = gitLabPrivateToken // the variable resides in $GRADLE_USER_HOME/gradle.properties
