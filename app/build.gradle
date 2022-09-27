@@ -55,7 +55,7 @@ repositories {
     }
 }
 group = 'org.example'
-version = 'version'
+version = version
 publishing {
     publications {
         library(MavenPublication) {
