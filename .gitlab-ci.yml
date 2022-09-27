@@ -45,8 +45,8 @@ deploy:
   stage: deploy
   script:
     - 'gradle publish'
-  only:
-    - tags
-  artifactls:
-    paths:
+#  only:
+#    - tags
+#  artifactls:
+#    paths:
 
