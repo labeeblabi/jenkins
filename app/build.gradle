@@ -54,6 +54,8 @@ repositories {
         name "GitLab"
     }
 }
+group = 'org.example'
+version = '1.0'
 publishing {
     publications {
         library(MavenPublication) {
