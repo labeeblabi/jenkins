@@ -55,7 +55,7 @@ repositories {
     }
 }
 group = 'gradle'
-version = '3.0'
+version = version
 publishing {
     publications {
         library(MavenPublication) {
