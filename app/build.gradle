@@ -12,11 +12,14 @@ plugins {
     id 'maven-publish'
     id 'java'
 }
-jar {
+jar{
     manifest {
-        attributes "Main-Class": "your.package.classWithMain"
-        attributes "Class-Path": configurations.compile.collect { it.absolutePath }.join(" ")
+        attributes(
+                "Main-Class": "app.Program",                
+                "Class-Path":  configurations.implementation.collect { it.name }.join(' ')              
+        )
     }
+    dependsOn ('dependencies')
 }
 repositories {
     // Use Maven Central for resolving dependencies.
