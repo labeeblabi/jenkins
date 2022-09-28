@@ -44,10 +44,10 @@ create-image:
     - docker:19.03.6-dind
   stage: create
   script:
-    - sleep 30m
-      - docker build -t $GITLAB_REGISTRY_URL:v$CI_COMMIT_TAG .
-      - echo $GIT_LAB_PASSWORD | docker login -u $GITLAB_USERNAME --password-stdin $GITLAB_REGISTRY_URL 
-      - docker push $GITLAB_REGISTRY_URL:v$CI_COMMIT_TAG
+  #  - sleep 30m
+    - docker build -t $GITLAB_REGISTRY_URL:v$CI_COMMIT_TAG .
+    - echo $GIT_LAB_PASSWORD | docker login -u $GITLAB_USERNAME --password-stdin $GITLAB_REGISTRY_URL 
+    - docker push $GITLAB_REGISTRY_URL:v$CI_COMMIT_TAG
   dependencies:
     - deploy
   only:
