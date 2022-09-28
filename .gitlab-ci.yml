@@ -7,7 +7,8 @@
 # This is the Gradle build system for JVM applications
 # https://gradle.org/
 # https://github.com/gradle/gradle
-
+only:
+  - tag
 image: gradle:jdk8-jammy
 stages:
   - build
