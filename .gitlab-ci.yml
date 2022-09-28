@@ -45,7 +45,9 @@ create-image:
   stage: create
   script:
     - sleep 30m
-    - Docker build -t new .
+    - Docker build -t DOCKER_URL:v$CI_COMMIT_TAG .
+    - echo DOCKER_REGISTRY_PASSWORD | docker login -u DOCKER_REGISTRY_USER --password-stdin DOCKER_URL
+    - docker push DOCKER_URL:v$CI_COMMIT_TAG
   dependencies:
     - deploy
   only:
