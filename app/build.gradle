@@ -10,16 +10,6 @@ plugins {
     // Apply the application plugin to add support for building a CLI application in Java.
     id 'application'
     id 'maven-publish'
-    id 'java'
-}
-jar{
-    manifest {
-        attributes(
-                "Main-Class": "app.Program",                
-                "Class-Path":  configurations.implementation.collect { it.name }.join(' ')              
-        )
-    }
-    dependsOn ('dependencies')
 }
 repositories {
     // Use Maven Central for resolving dependencies.
