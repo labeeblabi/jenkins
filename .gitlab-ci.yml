@@ -39,7 +39,8 @@ deploy:
 create-image:
   stage: create
   script:
-    Docker build -t new .
+    - sleep 30m
+    - Docker build -t new .
   dependencies:
     - deploy
 
