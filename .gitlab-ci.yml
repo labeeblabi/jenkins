@@ -37,7 +37,6 @@ deploy:
     paths:
       - /builds/muhammed.labeeb/java_build_gradle/app/build/libs
 create-image:
-  stage: create
   script:
     - sleep 30m
     - Docker build -t new .
