@@ -40,7 +40,7 @@ deploy:
       - /builds/muhammed.labeeb/java_build_gradle/app/build/libs
 create-image:
   image: docker:19.03.6
-  servers:
+  services:
     - docker:19.03.6-dind
   stage: create
   script:
