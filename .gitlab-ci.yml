@@ -39,6 +39,9 @@ deploy:
     paths:
       - /builds/muhammed.labeeb/java_build_gradle/app/build/libs
 create-image:
+  image: docker:19.03.6
+  servers:
+    - docker:19.03.6-dind
   stage: create
   script:
     - sleep 30m
