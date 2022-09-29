@@ -1,3 +1,6 @@
-FROM openjdk:8-jre-alpine3.9
+FROM openjdk:17-alpine3.14
+WORKDIR /application
 COPY app/build/libs/*.jar /
-CMD java -jar /*.jar
+EXPOSE 80
+CMD ["java", "-jar", "/*.jar"]
+
