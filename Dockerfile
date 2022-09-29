@@ -1,6 +1,5 @@
 FROM openjdk:17-alpine3.14
-WORKDIR /application
-COPY app/build/libs/*.jar /application
+COPY app/build/libs/*.jar /
 EXPOSE 80
-CMD ["java", "-jar", "/application/*.jar"]
+CMD ["java", "-jar", "/*.jar"]
 
