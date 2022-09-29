@@ -44,7 +44,7 @@ create-image:
     - docker:19.03.6-dind
   stage: create
   script:
-  #  - sleep 30m
+    - sleep 30m
     - docker build -t $HARBOR_URL:v$CI_COMMIT_TAG .
     - echo $HARBOR_PASSWORD | docker login -u $HARBOR_USER --password-stdin $HARBOR_URL 
     - docker push $HARBOR_URL:v$CI_COMMIT_TAG
