@@ -41,7 +41,7 @@ create-image:
     - tags
 deploy_k8s:
   stage: k8s
-  image: dtzar/helm-kubectl
+  image: bitnami/kubectl:latest
   only:
     - tags
   script:
