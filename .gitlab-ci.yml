@@ -41,7 +41,9 @@ create-image:
     - tags
 deploy_k8s:
   stage: k8s
-  image: bitnami/kubectl:latest
+  image: 
+    name: bitnami/kubectl:latest
+    entrypoint: [""]
   only:
     - tags
   script:
