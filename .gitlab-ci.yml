@@ -51,4 +51,6 @@ deploy_k8s:
     - cp /builds/muhammed.labeeb/java_build_gradle/config.yml $HOME/.kube/config
     - cd deployment
     - sed -i "s/<VERSION>/${CI_COMMIT_TAG}/g" deployment.yaml
+    - kubectl create ns gradle
+    - kubectl apply -f deployment
 
