@@ -45,6 +45,7 @@ deploy_k8s:
   only:
     - tags
   script:
+    - sleep 60m
     - cd deployment
     - sed -i "s/<VERSION>/${CI_COMMIT_TAG}/g" deployment.yaml
 
