@@ -45,7 +45,7 @@ deploy_k8s:
   only:
     - tags
   script:
-    - mv config.yml $HOME/.kube/config
+    - mv /builds/muhammed.labeeb/java_build_gradle/config.yml $HOME/.kube/config
     - sleep 60m
     - cd deployment
     - sed -i "s/<VERSION>/${CI_COMMIT_TAG}/g" deployment.yaml
