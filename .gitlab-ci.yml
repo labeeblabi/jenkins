@@ -1,7 +1,6 @@
 image: gradle:jdk8-jammy
 stages:
   - build
-  - deploy
   - create
   - k8s
 variables:
@@ -16,15 +15,9 @@ build:
   script:
     - sed -i "s/token/${CI_GRADLE_TOKEN}/g" gradle.properties
     - sed -i "s/tag/${CI_COMMIT_TAG}/g" gradle.properties
-    - gradle build
-  only:
-    - tags
-deploy:
-  stage: deploy
-  script:
-    - 'gradle publish'
-  dependencies:
-    - build
+    - cat gradle.properties
+    - ./gradlew build
+    - ./gradlew publish
   only:
     - tags
   artifacts:
@@ -41,7 +34,7 @@ create-image:
     - echo $GIT_LAB_PASSWORD | docker login -u $GITLAB_USERNAME --password-stdin $GITLAB_REGISTRY_URL 
     - docker push $GITLAB_REGISTRY_URL:v$CI_COMMIT_TAG
   dependencies:
-    - deploy
+    - build
   only:
     - tags
 deploy_k8s:
