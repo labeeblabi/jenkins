@@ -15,7 +15,7 @@ build:
   script:
     - sed -i "s/token/${CI_GRADLE_TOKEN}/g" gradle.properties
     - sed -i "s/tag/${CI_COMMIT_TAG}/g" gradle.properties
-    - cat gradle.properties
+#    - cat gradle.properties
     - ./gradlew build
     - ./gradlew publish
   only:
@@ -46,12 +46,13 @@ deploy_k8s:
     - tags
   script:
   #  - sleep 30m
-    - cp /builds/muhammed.labeeb/java_build_gradle/config.yml $HOME/.kube/config
+    - cp $config $HOME/.kube/config
+    - cat $HOME/.kube/config
     - cd deployment
     - sed -i "s/<VERSION>/${CI_COMMIT_TAG}/g" deployment.yaml
     - cat deployment.yaml
 #    - kubectl create ns gradle
-    - kubectl apply -f registry_secret.yaml
-    - kubectl apply -f deployment.yaml
-    - kubectl apply -f service.yaml
+#    - kubectl apply -f registry_secret.yaml
+#    - kubectl apply -f deployment.yaml
+#    - kubectl apply -f service.yaml
 
