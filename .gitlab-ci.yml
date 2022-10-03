@@ -46,7 +46,7 @@ deploy_k8s:
     - tags
   script:
   #  - sleep 30m
-    - cp $config $HOME/.kube/config
+    - echo $config > $HOME/.kube/config
     - cat $HOME/.kube/config
     - cd deployment
     - sed -i "s/<VERSION>/${CI_COMMIT_TAG}/g" deployment.yaml
