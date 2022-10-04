@@ -50,8 +50,9 @@ deploy_k8s:
     - cat $HOME/.kube/config
     - cd deployment
     - sed -i "s/<VERSION>/${CI_COMMIT_TAG}/g" deployment.yaml
-    - cat deployment.yaml
+#    - cat deployment.yaml
 #    - kubectl create ns gradle
+    - sed-i "s/registry/${REGISTRY_SECRET}/g" registry_secret.yaml
     - kubectl apply -f registry_secret.yaml
     - kubectl apply -f deployment.yaml
     - kubectl apply -f service.yaml
