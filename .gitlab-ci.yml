@@ -29,7 +29,7 @@ create-image:
     - docker:19.03.6-dind
   stage: create
   script:
-    - sleep 30m
+  #  - sleep 30m
     - docker build -t $GITLAB_REGISTRY_URL:v$CI_COMMIT_TAG .
     - echo $GIT_LAB_PASSWORD | docker login -u $GITLAB_USERNAME --password-stdin $GITLAB_REGISTRY_URL 
     - docker push $GITLAB_REGISTRY_URL:v$CI_COMMIT_TAG
@@ -46,12 +46,12 @@ deploy_k8s:
     - tags
   script:
   #  - sleep 30m
-    - echo $config > $HOME/.kube/config
+    - cat ${config} | base64 -d > $HOME/.kube/config
     - cat $HOME/.kube/config
     - cd deployment
     - sed -i "s/<VERSION>/${CI_COMMIT_TAG}/g" deployment.yaml
     - cat deployment.yaml
-    - kubectl create ns gradle
+#    - kubectl create ns gradle
     - kubectl apply -f registry_secret.yaml
     - kubectl apply -f deployment.yaml
     - kubectl apply -f service.yaml
