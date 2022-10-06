@@ -1,0 +1,23 @@
+
+apiVersion: v1
+clusters:
+- cluster:
+    certificate-authority-data: {{ CERT_AUTH_DATA }}
+    server: https://{{ CLUSTER_IP }}:6443
+  name: kubernetes
+contexts:
+- context:
+    cluster: kubernetes
+    user: {{ KUBE_USR }}
+  name: {{ KUBE_USR }}@kubernetes
+current-context: {{ KUBE_USR }}@kubernetes
+kind: Config
+preferences: {}
+users:
+- name: {{ KUBE_USR }}
+  user:
+    client-certificate-data: {{ CLNT_CERT_DATA }}
+    client-key-data: {{ CLNT_KEY_DATA }}
+
+
+
