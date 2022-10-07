@@ -34,6 +34,8 @@ config:
     - tags
 build:
   stage: build
+  dependencies:
+    - jinja-config
 #  when: manual
   script:
 #    - sleep 30m
