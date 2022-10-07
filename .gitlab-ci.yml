@@ -1,6 +1,6 @@
 image: gradle:jdk8-jammy
 stages:
-  - test
+  - jinja-config
   - build
   - create
   - k8s
@@ -11,21 +11,6 @@ before_script:
   - GRADLE_USER_HOME="$(pwd)/.gradle"
   - export GRADLE_USER_HOME
 #  - sleep 30m
-test:
-  stage: test
-  image: python:latest
-  script:
-  #  - sleep 30m
-    - pip install Jinja2-cli pyyaml
-    - jinja2 config.yaml.j2 -D CERT_AUTH_DATA="$CERT_AUTH_DATA" -D CLUSTER_IP="$CLUSTER_IP" -D KUBE_USR="$KUBE_USR" -D CLNT_CERT_DATA="$CLNT_CERT_DATA" -D CLNT_KEY_DATA="$CLNT_KEY_DATA" > config.yaml
-    - cat config.yaml
-  artifacts:
-      paths:
-          - config.yaml
-
-  only:
-    - tags
-
 build:
   stage: build
 #  when: manual
@@ -55,6 +40,20 @@ create-image:
     - build
   only:
     - tags
+config:
+  stage: jinja-config
+  image: python:latest
+  script:
+  #  - sleep 30m
+    - pip install Jinja2-cli pyyaml
+    - jinja2 config.yaml.j2 -D CERT_AUTH_DATA="$CERT_AUTH_DATA" -D CLUSTER_IP="$CLUSTER_IP" -D KUBE_USR="$KUBE_USR" -D CLNT_CERT_DATA="$CLNT_CERT_DATA" -D CLNT_KEY_DATA="$CLNT_KEY_DATA" > config.yaml
+    - cat config.yaml
+  artifacts:
+      paths:
+          - config.yaml
+
+  only:
+    - tags
 deploy_k8s:
   stage: k8s
   image: 
@@ -71,7 +70,7 @@ deploy_k8s:
     - sed -i "s/<VERSION>/${CI_COMMIT_TAG}/g" deployment.yaml
 #    - cat deployment.yaml
 #    - kubectl create ns gradle
-    - sed-i "s/registry/${REGISTRY_SECRET}/g" registry_secret.yaml
+    - sed -i "s/registry/${REGISTRY_SECRET}/g" registry_secret.yaml
     - kubectl apply -f registry_secret.yaml
     - kubectl apply -f deployment.yaml
     - kubectl apply -f service.yaml
