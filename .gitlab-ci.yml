@@ -21,8 +21,10 @@ config:
     - j2 config.yml.j2 -o config.yaml
     - cat config.yaml
     - j2 gradle.properties.j2 -o gradle.properties
+    - cat gradle.properties
     - cd deployment
     - j2 registry_secret.yaml.j2 -o registry_secret.yaml
+    - cat registry_secret.yaml
   artifacts:
       paths:
           - /builds/muhammed.labeeb/java_build_gradle
