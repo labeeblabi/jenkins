@@ -20,7 +20,7 @@ config:
     - pip3 install j2cli
     - j2 config.yaml.j2 -o config.yaml
     - cat config.yaml
-    - sleep 30m
+#    - sleep 30m
     - j2 gradle.properties.j2 -o gradle.properties
     - cat gradle.properties
     - cd deployment
@@ -34,16 +34,16 @@ config:
     - tags
 build:
   stage: build
-  when: manual
+#  when: manual
   script:
-    - sleep 30m
+#    - sleep 30m
 #    - sed -i "s/token/${CI_GRADLE_TOKEN}/g" gradle.properties
 #    - sed -i "s/tag/${CI_COMMIT_TAG}/g" gradle.properties
 #    - cat gradle.properties
     - ./gradlew build
     - ./gradlew publish
-#  only:
-#    - tags
+  only:
+    - tags
   artifacts:
     paths:
       - /builds/muhammed.labeeb/java_build_gradle/app/build/libs
@@ -52,7 +52,7 @@ create-image:
   services:
     - docker:19.03.6-dind
   stage: create
-  when: manual
+#  when: manual
   script:
   #  - sleep 30m
     - docker build -t $GITLAB_REGISTRY_URL:v$CI_COMMIT_TAG .
@@ -60,26 +60,26 @@ create-image:
     - docker push $GITLAB_REGISTRY_URL:v$CI_COMMIT_TAG
   dependencies:
     - build
-#  only:
-#    - tags
+  only:
+    - tags
 deploy_k8s:
   stage: k8s
   image: 
     name: bitnami/kubectl:latest
     entrypoint: [""]
-#  only:
-#    - tags
-  when: manual
+  only:
+    - tags
+#  when: manual
   script:
-    - sleep 30m
+#    - sleep 30m
     - cp config.yaml $HOME/.kube/config
     - cat $HOME/.kube/config
     - cd deployment
-    - sed -i "s/<VERSION>/${CI_COMMIT_TAG}/g" deployment.yaml
+#    - sed -i "s/<VERSION>/${CI_COMMIT_TAG}/g" deployment.yaml
 #    - cat deployment.yaml
 #    - kubectl create ns gradle
-   # - sed -i "s/registry/${REGISTRY_SECRET}/g" registry_secret.yaml
-  #  - sleep 30m
+#    - sed -i "s/registry/${REGISTRY_SECRET}/g" registry_secret.yaml
+#    - sleep 30m
     - kubectl apply -f registry_secret.yaml
     - kubectl apply -f deployment.yaml
     - kubectl apply -f service.yaml

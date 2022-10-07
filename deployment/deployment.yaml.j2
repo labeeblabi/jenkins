@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: myapp
-        image: gitlab.mvtest-harbor.live:5050/muhammed.labeeb/java_build_gradle/gradle:v<VERSION>
+        image: gitlab.mvtest-harbor.live:5050/muhammed.labeeb/java_build_gradle/gradle:v{{ CI_COMMIT_TAG }}
         ports:
         - containerPort: 80
       imagePullSecrets:
