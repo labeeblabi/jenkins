@@ -43,8 +43,9 @@ create-image:
 config:
   stage: jinja-config
   image: python:latest
+  when: manual
   script:
-    - sleep 30m
+  #  - sleep 30m
     - pip3 install j2cli
     -  j2 config.yml.j2 -o config.yaml
     - cat config.yaml
@@ -70,8 +71,8 @@ deploy_k8s:
     - sed -i "s/<VERSION>/${CI_COMMIT_TAG}/g" deployment.yaml
 #    - cat deployment.yaml
 #    - kubectl create ns gradle
-    - sed -i "s/registry/${REGISTRY_SECRET}/g" registry_secret.yaml
-    - sleep 30m
+   # - sed -i "s/registry/${REGISTRY_SECRET}/g" registry_secret.yaml
+  #  - sleep 30m
     - kubectl apply -f registry_secret.yaml
     - kubectl apply -f deployment.yaml
     - kubectl apply -f service.yaml
