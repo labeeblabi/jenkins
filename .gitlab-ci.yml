@@ -18,7 +18,7 @@ config:
   script:
   #  - sleep 30m
     - pip3 install j2cli
-    - j2 config.yml.j2 -o config.yaml
+    - j2 config.yaml.j2 -o config.yaml
     - cat config.yaml
     - j2 gradle.properties.j2 -o gradle.properties
     - cat gradle.properties
