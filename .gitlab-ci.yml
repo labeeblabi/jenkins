@@ -14,7 +14,7 @@ before_script:
 config:
   stage: jinja-config
   image: python:latest
-  when: manual
+#  when: manual
   script:
   #  - sleep 30m
     - pip3 install j2cli
@@ -30,8 +30,8 @@ config:
       paths:
           - /builds/muhammed.labeeb/java_build_gradle
 
-#  only:
-#    - tags
+  only:
+    - tags
 build:
   stage: build
   when: manual
