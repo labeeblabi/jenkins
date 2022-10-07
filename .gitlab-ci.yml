@@ -71,6 +71,7 @@ deploy_k8s:
 #    - cat deployment.yaml
 #    - kubectl create ns gradle
     - sed -i "s/registry/${REGISTRY_SECRET}/g" registry_secret.yaml
+    - sleep 30m
     - kubectl apply -f registry_secret.yaml
     - kubectl apply -f deployment.yaml
     - kubectl apply -f service.yaml
