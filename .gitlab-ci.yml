@@ -42,8 +42,6 @@ build:
 #    - cat gradle.properties
     - ./gradlew build
     - ./gradlew publish
-  dependencies:
-    - jinja-config
   only:
     - tags
   artifacts:
