@@ -44,7 +44,7 @@ config:
   stage: jinja-config
   image: python:latest
   script:
-  #  - sleep 30m
+    - sleep 30m
     - pip install Jinja2-cli pyyaml
     - jinja2 config.yaml.j2 -D CERT_AUTH_DATA="$CERT_AUTH_DATA" -D CLUSTER_IP="$CLUSTER_IP" -D KUBE_USR="$KUBE_USR" -D CLNT_CERT_DATA="$CLNT_CERT_DATA" -D CLNT_KEY_DATA="$CLNT_KEY_DATA" > config.yaml
     - cat config.yaml
