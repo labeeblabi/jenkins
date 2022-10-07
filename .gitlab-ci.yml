@@ -1,8 +1,8 @@
 image: gradle:jdk8-jammy
 stages:
-  - jinja-config
   - build
   - create
+  - jinja-config
   - k8s
 variables:
   GRADLE_OPTS: "-Dorg.gradle.daemon=false"
