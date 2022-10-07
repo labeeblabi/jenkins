@@ -20,6 +20,7 @@ config:
     - pip3 install j2cli
     - j2 config.yaml.j2 -o config.yaml
     - cat config.yaml
+    - sleep 30m
     - j2 gradle.properties.j2 -o gradle.properties
     - cat gradle.properties
     - cd deployment
