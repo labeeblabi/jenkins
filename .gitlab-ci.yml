@@ -1,26 +1,27 @@
 image: gradle:jdk8-jammy
 stages:
   - jinja-config
+#  - jinja-config
   - build
   - create
-  - k8s
+#  - k8s
+  - kubectl
 variables:
   GRADLE_OPTS: "-Dorg.gradle.daemon=false"
 
 before_script:
   - GRADLE_USER_HOME="$(pwd)/.gradle"
   - export GRADLE_USER_HOME
-#  - sleep 30m
+include:
+  - project: 'build-projects/build-jobs/kubectljob/'
+    ref: main
+    file: 'kubectl-job-gitlab-ci.yaml'
+  - project: 'build-projects/build-jobs/config-gen-job/'
+    ref: main
+    file: 'config-gen-gitlab-ci.yaml'
 config:
-  stage: jinja-config
-  image: python:latest
-#  when: manual
   script:
-  #  - sleep 30m
-    - pip3 install j2cli
-    - j2 config.yaml.j2 -o config.yaml
     - cat config.yaml
-#    - sleep 30m
     - j2 gradle.properties.j2 -o gradle.properties
     - cat gradle.properties
     - cd deployment
@@ -28,12 +29,39 @@ config:
     - cat registry_secret.yaml
     - j2 deployment.yaml.j2 -o deployment.yaml
     - cat deployment.yaml
+  only:
+    - tags
   artifacts:
       paths:
           - /builds/muhammed.labeeb/java_build_gradle
 
-  only:
-    - tags
+
+
+
+#  - sleep 30m
+#config:
+#  stage: jinja-config
+#  image: python:latest
+#  when: manual
+#  script:
+  #  - sleep 30m
+#    - pip3 install j2cli
+#    - j2 config.yaml.j2 -o config.yaml
+#    - cat config.yaml
+#    - sleep 30m
+#    - j2 gradle.properties.j2 -o gradle.properties
+#    - cat gradle.properties
+#    - cd deployment
+#    - j2 registry_secret.yaml.j2 -o registry_secret.yaml
+#    - cat registry_secret.yaml
+#    - j2 deployment.yaml.j2 -o deployment.yaml
+#    - cat deployment.yaml
+#  artifacts:
+#      paths:
+#          - /builds/muhammed.labeeb/java_build_gradle
+
+#  only:
+#    - tags
 build:
   stage: build
 #  when: manual
@@ -65,25 +93,32 @@ create-image:
     - build
   only:
     - tags
-deploy_k8s:
-  stage: k8s
-  image: 
-    name: bitnami/kubectl:latest
-    entrypoint: [""]
-  only:
-    - tags
+#deploy_k8s:
+#  stage: k8s
+#  image: 
+#    name: bitnami/kubectl:latest
+#    entrypoint: [""]
+#  only:
+#    - tags
 #  when: manual
-  script:
+#  script:
 #    - sleep 30m
-    - cp config.yaml $HOME/.kube/config
-    - cat $HOME/.kube/config
-    - cd deployment
+#    - cp config.yaml $HOME/.kube/config
+#    - cat $HOME/.kube/config
+#    - cd deployment
 #    - sed -i "s/<VERSION>/${CI_COMMIT_TAG}/g" deployment.yaml
 #    - cat deployment.yaml
 #    - kubectl create ns gradle
 #    - sed -i "s/registry/${REGISTRY_SECRET}/g" registry_secret.yaml
 #    - sleep 30m
+#    - kubectl apply -f registry_secret.yaml
+#    - kubectl apply -f deployment.yaml
+#    - kubectl apply -f service.yaml
+kubectlappy:
+  script:
     - kubectl apply -f registry_secret.yaml
     - kubectl apply -f deployment.yaml
     - kubectl apply -f service.yaml
+  only:
+    - tags
 
