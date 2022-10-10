@@ -106,10 +106,6 @@ create-image:
 #    - kubectl apply -f deployment.yaml
 #    - kubectl apply -f service.yaml
 kubectlappy:
-  script:
-    - kubectl apply -f registry_secret.yaml
-    - kubectl apply -f deployment.yaml
-    - kubectl apply -f service.yaml
   only:
     - tags
 
