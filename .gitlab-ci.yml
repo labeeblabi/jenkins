@@ -21,6 +21,7 @@ include:
     file: 'config-gen-gitlab-ci.yaml'
 config:
   script:
+    - j2 config.yaml.j2 -o config.yaml
     - cat config.yaml
     - j2 gradle.properties.j2 -o gradle.properties
     - cat gradle.properties
