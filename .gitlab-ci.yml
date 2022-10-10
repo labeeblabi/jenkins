@@ -13,10 +13,10 @@ before_script:
   - GRADLE_USER_HOME="$(pwd)/.gradle"
   - export GRADLE_USER_HOME
 include:
-  - project: 'build-projects/build-jobs/kubectl-job/'
+  - project: 'build-projects/build-jobs/kubectljob'
     ref: main
     file: 'kubectl-job-gitlab-ci.yaml'
-  - project: 'build-projects/build-jobs/config-job/'
+  - project: 'build-projects/build-jobs/config-gen-job'
     ref: main
     file: 'config-gen-gitlab-ci.yaml'
 config:
