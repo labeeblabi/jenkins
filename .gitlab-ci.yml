@@ -20,16 +20,6 @@ include:
     ref: main
     file: 'config-gen-gitlab-ci.yaml'
 config:
-  script:
-    - j2 config.yaml.j2 -o config.yaml
-    - cat config.yaml
-    - j2 gradle.properties.j2 -o gradle.properties
-    - cat gradle.properties
-    - cd deployment
-    - j2 registry_secret.yaml.j2 -o registry_secret.yaml
-    - cat registry_secret.yaml
-    - j2 deployment.yaml.j2 -o deployment.yaml
-    - cat deployment.yaml
   only:
     - tags
   artifacts:
